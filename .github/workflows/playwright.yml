@@ -25,9 +25,11 @@ jobs:
 
       - name: Build project
         run: dotnet build --no-restore --configuration Release
+      - name: Install Playwright CLI
+        run: dotnet tool install --global Microsoft.Playwright.CLI
 
       - name: Install Playwright Browsers
-        run: dotnet playwright install
+        run: playwright install --with-deps
 
       - name: Create Artifacts directory
         run: mkdir -p Artifacts
