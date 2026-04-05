@@ -28,8 +28,8 @@ jobs:
       - name: Install Playwright CLI
         run: dotnet tool install --global Microsoft.Playwright.CLI
 
-      - name: Install Playwright Browsers
-        run: playwright install --with-deps
+      - name: Install Playwright Chrome browser
+        run: playwright install chromium --with-deps
 
       - name: Create Artifacts directory
         run: mkdir -p Artifacts
