@@ -2,9 +2,9 @@ name: Playwright C# Tests
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   test:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup .NET 8
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "8.0.x"
 
       - name: Restore dependencies
         run: dotnet restore
@@ -26,23 +26,23 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore --configuration Release
 
-      - name: Install Playwright browsers
-        run: pwsh bin/Release/net8.0/playwright.ps1 install --with-deps
+      - name: Install Playwright Browsers
+        run: dotnet playwright install
 
       - name: Create Artifacts directory
         run: mkdir -p Artifacts
 
       - name: Run Smoke tests
         run: dotnet test --no-build --configuration Release
-             --filter "TestCategory=Smoke"
-             --logger "html;logfilename=smoke-report.html"
-             --results-directory TestResults
+          --filter "TestCategory=Smoke"
+          --logger "html;logfilename=smoke-report.html"
+          --results-directory TestResults
         continue-on-error: true
 
       - name: Run All tests
         run: dotnet test --no-build --configuration Release
-             --logger "html;logfilename=full-report.html"
-             --results-directory TestResults
+          --logger "html;logfilename=full-report.html"
+          --results-directory TestResults
 
       - name: Upload test reports
         uses: actions/upload-artifact@v4
