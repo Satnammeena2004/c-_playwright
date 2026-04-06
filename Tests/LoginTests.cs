@@ -22,7 +22,7 @@ public class LoginTests : BaseTest
     public async Task ValidLogin_RedirectsToAccountPage()
     {
         await _loginPage.LoginAs(Config.CustomerEmail, Config.CustomerPassword);
-        await Expect(Page).ToHaveURLAsync(new Regex(".*/account"));
+        await Expect(Page).ToHaveURLAsync(new Regex(".*/accountsss"));
     }
 
     [Test]

@@ -1,9 +1,9 @@
 # Playwright with C# — Final Assessment
 
-**Candidate:** STNAM  
-**Training:** Playwright with C# — 1-Week Plan  
+**Assessment** Playwright with C#  
 **Target site:** https://practicesoftwaretesting.com  
-**Framework:** NUnit + Playwright for .NET 8
+**API Target site:** https://dummyjson.com  
+**Framework:** NUnit + Playwright for .NET 8 + ExtentReports
 
 ---
 
@@ -26,12 +26,16 @@ PlaywrightAssessment/
 │   ├── ApiTests.cs             ← Task 3: GET/POST API validation
 │   └── NetworkMockTests.cs     ← Day 5: route interception + mocking
 ├── Utilities/
-│   └── AuthHelper.cs           ← Save/load storage state for fast login
+│   └── AuthHelper.cs            ← Save/load storage state for fast login
+    └── ReportManager.cs         ← ExtentReports HTML report generation
 ├── Artifacts/                  ← Screenshots, traces, reports (auto-created)
 ├── .github/workflows/
 │   └── playwright.yml          ← GitHub Actions CI pipeline
 ├── PlaywrightAssessment.csproj
 └── README.md
+bin/Debug/net8.0/
+├── Artifacts/                  ← Test artifacts 
+
 ```
 
 ---
@@ -66,22 +70,23 @@ pwsh bin/Debug/net8.0/playwright.ps1 install
 dotnet test
 ```
 
-### 5. Run with HTML report
-```bash
-dotnet test --logger "html;logfilename=report.html" --results-directory TestResults
-```
 
-### 6. Run only smoke tests
+
+### 5. Run only smoke tests
 ```bash
 dotnet test --filter "TestCategory=Smoke"
 ```
 
-### 7. Run headed (see the browser)
+### 6. Run headed (see the browser)
 ```bash
 HEADED=1 dotnet test
 ```
 
----
+### 7. Preview the HTML report after test run
+
+  - Open `Artifacts/Report/index.html` in a browser to view the ExtentReports test report.
+
+
 
 ## Environment Variables (optional override)
 

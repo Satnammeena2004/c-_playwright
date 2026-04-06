@@ -1,3 +1,4 @@
+using AventStack.ExtentReports;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -7,12 +8,13 @@ namespace PlaywrightAssessment.Tests;
 [TestFixture]
 public class BaseTest : PageTest
 {
+    private ExtentTest reportTest = null!;
 
     [SetUp]
     public async Task BeforeEachTest()
     {
         Directory.CreateDirectory("Artifacts");
-
+        reportTest = ReportManager.Extent.CreateTest(TestContext.CurrentContext.Test.Name);
         await Context.Tracing.StartAsync(new()
         {
             Title = CurrentTestName(),
@@ -30,9 +32,18 @@ public class BaseTest : PageTest
                           == TestStatus.Failed;
 
         if (testFailed)
+        {
+
             await SaveFailureEvidence();
+        }
         else
+        {
+
             await DiscardTrace();
+        }
+        
+        ReportManager.SaveReport();
+
     }
 
     private async Task SaveFailureEvidence()
@@ -44,10 +55,13 @@ public class BaseTest : PageTest
         await Page.ScreenshotAsync(new()
         {
             Path = screenshotPath,
-            FullPage = true          
+            FullPage = true
         });
 
         await Context.Tracing.StopAsync(new() { Path = tracePath });
+        var error = TestContext.CurrentContext.Result.Message ?? "Unknown error";
+        reportTest.Fail($"Test failed: {error}");
+        reportTest.AddScreenCaptureFromPath(screenshotPath, "Failure Screenshot");
 
         TestContext.AddTestAttachment(screenshotPath, "Failure Screenshot");
         TestContext.AddTestAttachment(tracePath, "Playwright Trace");
@@ -55,6 +69,7 @@ public class BaseTest : PageTest
 
     private async Task DiscardTrace()
     {
+        reportTest.Pass("Test passed");
         await Context.Tracing.StopAsync(new());
     }
 

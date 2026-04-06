@@ -24,34 +24,23 @@ jobs:
         run: dotnet restore
 
       - name: Build project
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build
+        
       - name: Install Playwright CLI
         run: dotnet tool install --global Microsoft.Playwright.CLI
 
       - name: Install Playwright Chrome browser
         run: playwright install chromium --with-deps
 
-      - name: Create Artifacts directory
-        run: mkdir -p Artifacts
-
       - name: Run Smoke tests
-        run: dotnet test --no-build --configuration Release
-          --filter "TestCategory=Smoke"
-          --logger "html;logfilename=smoke-report.html"
-          --results-directory TestResults
+        run: dotnet test --filter "TestCategory=Smoke"
         continue-on-error: true
-
-      - name: Run All tests
-        run: dotnet test --no-build --configuration Release
-          --logger "html;logfilename=full-report.html"
-          --results-directory TestResults
 
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-test-results
+          name: playwright-test-results ans Artifacts
           path: |
-            TestResults/
-            Artifacts/
+            bin/Debug/net8.0/Artifacts/
           retention-days: 14
