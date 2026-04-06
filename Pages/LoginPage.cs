@@ -9,7 +9,7 @@ public class LoginPage : BasePage
 
     public LoginPage(IPage page) : base(page) { }
 
-    public ILocator EmailInput => Page.GetByPlaceholder("Your email");
+    public ILocator EmailInput => Page.Locator("//input[@id='email']");
     public ILocator PasswordInput => Page.GetByPlaceholder("Your password");
     public ILocator LoginButton => Page.Locator("//input[@value='Login']");
     public ILocator ErrorMessage => Page.GetByText("Invalid email or password");

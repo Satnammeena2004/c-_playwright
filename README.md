@@ -75,6 +75,9 @@ dotnet test
 ### 5. Run only smoke tests
 ```bash
 dotnet test --filter "TestCategory=Smoke"
+dotnet test --filter "TestCategory=Regression"
+dotnet test --filter "TestCategory=Product"
+dotnet test --filter "TestCategory=Search"
 ```
 
 ### 6. Run headed (see the browser)

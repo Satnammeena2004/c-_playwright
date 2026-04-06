@@ -25,7 +25,6 @@ public class CheckoutFlowTests : BaseTest
     }
 
     [Test]
-    [Category("Smoke")]
     [Category("Product")]
     public async Task Homepage_DisplaysProducts()
     {

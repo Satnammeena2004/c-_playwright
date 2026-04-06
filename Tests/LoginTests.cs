@@ -23,10 +23,11 @@ public class LoginTests : BaseTest
     {
         await _loginPage.LoginAs(Config.CustomerEmail, Config.CustomerPassword);
         await Expect(Page).ToHaveURLAsync(new Regex(".*/account"));
+        Assert.Pass();
     }
 
     [Test]
-     [Category("Smoke")]
+    [Category("Smoke")]
     [Category("Login")]
     public async Task ValidLogin_ThenLogout_RedirectsToLogin()
     {
@@ -39,7 +40,7 @@ public class LoginTests : BaseTest
 
 
     [Test]
-     [Category("Regression")]
+    [Category("Regression")]
     [Category("Login")]
     public async Task InvalidPassword_ShowsErrorMessage()
     {
@@ -50,7 +51,7 @@ public class LoginTests : BaseTest
 
 
     [Test]
-     [Category("Regression")]
+    [Category("Regression")]
     [Category("Login")]
     public async Task EmptyFields_ShowsValidationErrors()
     {
