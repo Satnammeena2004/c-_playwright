@@ -14,6 +14,8 @@ public class BaseTest : PageTest
     public async Task BeforeEachTest()
     {
         Directory.CreateDirectory("Artifacts");
+        Directory.CreateDirectory("Artifacts/Report");
+        Directory.CreateDirectory("Artifacts/Report/screenshots");
         reportTest = ReportManager.Extent.CreateTest(TestContext.CurrentContext.Test.Name);
         await Context.Tracing.StartAsync(new()
         {
@@ -41,7 +43,7 @@ public class BaseTest : PageTest
 
             await DiscardTrace();
         }
-        
+
         ReportManager.SaveReport();
 
     }
@@ -49,7 +51,7 @@ public class BaseTest : PageTest
     private async Task SaveFailureEvidence()
     {
         string testName = CurrentTestName();
-        string screenshotPath = $"Artifacts/FAIL-{testName}.png";
+        string screenshotPath = $"Artifacts/Report/screenshots/FAIL-{testName}.png";
         string tracePath = $"Artifacts/trace-{testName}.zip";
 
         await Page.ScreenshotAsync(new()

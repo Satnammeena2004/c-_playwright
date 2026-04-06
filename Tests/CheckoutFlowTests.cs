@@ -4,11 +4,6 @@ using PlaywrightAssessment._Config;
 
 namespace PlaywrightAssessment.Tests;
 
-/// <summary>
-/// Task 2 (20 pts) — End-to-end business flow with validation.
-/// Covers: search → product detail → add to cart → cart count validation.
-/// Uses storage state to skip UI login (Day 5 concept).
-/// </summary>
 [TestFixture]
 public class CheckoutFlowTests : BaseTest
 {
@@ -82,7 +77,6 @@ public class CheckoutFlowTests : BaseTest
         ProductPage productPage = new ProductPage(Page);
         await productPage.AddFirstProductToCart();
 
-        // Cart badge should now show 1
         await Expect(productPage.CartBadge).ToHaveTextAsync("1");
     }
 

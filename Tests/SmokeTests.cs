@@ -4,9 +4,7 @@ using PlaywrightAssessment._Config;
 
 namespace PlaywrightAssessment.Tests;
 
-/// <summary>
-/// Day 1 — Smoke tests: homepage load, title, navigation, screenshot.
-/// </summary>
+
 [TestFixture]
 public class SmokeTests : BaseTest
 {

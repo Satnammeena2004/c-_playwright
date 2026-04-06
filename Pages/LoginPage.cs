@@ -9,7 +9,6 @@ public class LoginPage : BasePage
 
     public LoginPage(IPage page) : base(page) { }
 
-    // Locators
     public ILocator EmailInput => Page.GetByPlaceholder("Your email");
     public ILocator PasswordInput => Page.GetByPlaceholder("Your password");
     public ILocator LoginButton => Page.Locator("//input[@value='Login']");
@@ -17,7 +16,6 @@ public class LoginPage : BasePage
     public ILocator EmailError => Page.GetByText("Email is required");
     public ILocator PasswordError => Page.GetByText("Password is required");
 
-    // Actions
     public async Task GoToAsync()
         => await Page.GotoAsync(Config.BaseUrl + LoginPath);
 

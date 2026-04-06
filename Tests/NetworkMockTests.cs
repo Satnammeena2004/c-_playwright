@@ -9,7 +9,6 @@ public class NetworkMockTests : BaseTest
     [Test]
     public async Task MockProductApi_ShowsMockedData()
     {
-        // Intercept any call to /products and return fake data
         await Page.RouteAsync("**/products**", async route =>
         {
             await route.FulfillAsync(new()
